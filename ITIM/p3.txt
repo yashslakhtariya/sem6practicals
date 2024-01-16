@@ -1,0 +1,27 @@
+fdisk (alternative to mkpart, to create disk partitions)
+
+after it, use partprobe to force kernel re-read the disks
+
+Then mkfs.xfs /dev/vdb1 to make xfs filesystem to specified partitions
+
+Then it can be mounted to any dir like mount /dev/vdb1 /tmp/ysl
+
+mount -a : mount all, show if any error on mounting any disks
+
+IMP : After mounting, to make sure the device boots, enter manual entry of the partition in /etc/fstab
+
+UUID can be got by blkid and can be written in /etc/fstab
+
+Then partprobe and reboot
+
+If device reboots successfully, done!
+
+For deleting it,
+
+remove entry from /etc/fstab
+
+then umount /dev/vdb1
+
+then, fdisk /dev/vdb1, then press m for help, first CHECK partition table via p,  then delete the partition
+
+reboot
