@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YSL Light Bulb</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #ffffff;
+      }
+
+      #bulb {
+        width: 400px;
+        height: 400px;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      #controls {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .btn {
+        margin: 0 10px;
+        padding: 10px 15px;
+        font-size: 22px;
+        background-color: #5e81cc;
+        color: #ffffff;
+        border: none;
+        border-radius: 16px;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background-color: #a347ba;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="bulb" style="background-image: url('bulb_off.png')"></div>
+    &nbsp;&nbsp;
+    <div id="controls">
+      <button class="btn" onclick="turnOn()">ON</button>
+      <button class="btn" onclick="turnOff()">OFF</button>
+    </div>
+
+    <script>
+      function turnOn() {
+        document.getElementById("bulb").style.backgroundImage =
+          "url('bulb_on.png')";
+      }
+
+      function turnOff() {
+        document.getElementById("bulb").style.backgroundImage =
+          "url('bulb_off.png')";
+      }
+    </script>
+  </body>
+</html>
