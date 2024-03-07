@@ -1,132 +1,128 @@
 import YSL_io
 
-letters = "abcdefghiklmnopqrstuvwxyz"
+def getPlainText(plaintext):
+    ct = 0
+    for i in range(len(plaintext)-1):
+        if plaintext[i] == plaintext[i+1]:
+            if i % 2 == 0:
+                plaintext = plaintext[:i+1] + 'x' + plaintext[i+1:]
+    if len(plaintext) % 2 == 1:
+        plaintext = plaintext + 'z'
+    ct = 0
+    n = 2
+    pltext = [plaintext[i:i+n] for i in range(0, len(plaintext), n)]
+    return pltext
 
-
-def to_lower(text):
-    return text.lower()
-
-
-def remove_spaces(text):
-    new_text = ""
-    for char in text:
-        if char != " ":
-            new_text += char
-    return new_text
-
-
-def create_digraphs(text):
-    digraphs = []
-    group = 0
-    for i in range(2, len(text), 2):
-        digraphs.append(text[group:i])
-        group = i
-    digraphs.append(text[group:])
-    return digraphs
-
-
-def fill_letter(text):
-    k = len(text)
-    if k % 2 == 0:
-        for i in range(0, k, 2):
-            if text[i] == text[i + 1]:
-                new_word = text[0 : i + 1] + "x" + text[i + 1 :]
-                new_word = fill_letter(new_word)
+def getMatrix(key):
+    str1 = 'abcdefghiklmnopqrstuvwxyz'
+    key = key.replace("j", "i")
+    matrix = [['' for _ in range(5)] for _ in range(5)]
+    i = 0
+    j = 0
+    for k in key + str1:
+        flag = False
+        for z in range(5):
+            if k in matrix[z]:
+                flag = True
                 break
-        else:
-            new_word = text
-    else:
-        for i in range(0, k - 1, 2):
-            if text[i] == text[i + 1]:
-                new_word = text[0 : i + 1] + "x" + text[i + 1 :]
-                new_word = fill_letter(new_word)
-                break
-        else:
-            new_word = text
-    return new_word
-
-
-def generate_key_table(word, letters):
-    key_letters = []
-    for char in word:
-        if char not in key_letters:
-            key_letters.append(char)
-    comp_elements = []
-    for char in key_letters:
-        if char not in comp_elements:
-            comp_elements.append(char)
-    for char in letters:
-        if char not in comp_elements:
-            comp_elements.append(char)
-    matrix = []
-    while comp_elements:
-        matrix.append(comp_elements[:5])
-        comp_elements = comp_elements[5:]
+        if not flag:
+            matrix[i][j] = k
+            j += 1
+            if j == 5:
+                i += 1
+                j = 0
     return matrix
 
+def encryption(pltext, matrix):
+    encrypted = []
+    for i in range(len(pltext)):
+        a = None
+        b = None
+        for j in range(len(matrix)):
+            if pltext[i][0] in matrix[j]:
+                a = [j, matrix[j].index(pltext[i][0])]
+            if pltext[i][1] in matrix[j]:
+                b = [j, matrix[j].index(pltext[i][1])]
+            if a and b:  # Both a and b are found
+                break
 
-def search(matrix, element):
-    for i in range(5):
-        for j in range(5):
-            if matrix[i][j] == element:
-                return i, j
-
-
-def encrypt_row_rule(matrix, r1, c1, r2, c2):
-    char1 = matrix[r1][(c1 + 1) % 5] if c1 != 4 else matrix[r1][0]
-    char2 = matrix[r2][(c2 + 1) % 5] if c2 != 4 else matrix[r2][0]
-    return char1, char2
-
-
-def encrypt_column_rule(matrix, r1, c1, r2, c2):
-    char1 = matrix[(r1 + 1) % 5][c1] if r1 != 4 else matrix[0][c1]
-    char2 = matrix[(r2 + 1) % 5][c2] if r2 != 4 else matrix[0][c2]
-    return char1, char2
-
-
-def encrypt_rectangle_rule(matrix, r1, c1, r2, c2):
-    char1 = matrix[r1][c2]
-    char2 = matrix[r2][c1]
-    return char1, char2
-
-
-def encrypt_by_playfair_cipher(matrix, plain_list):
-    cipher_text = []
-    for pair in plain_list:
-        ele1_r, ele1_c = search(matrix, pair[0])
-        ele2_r, ele2_c = search(matrix, pair[1])
-        if ele1_r == ele2_r:
-            char1, char2 = encrypt_row_rule(matrix, ele1_r, ele1_c, ele2_r, ele2_c)
-        elif ele1_c == ele2_c:
-            char1, char2 = encrypt_column_rule(matrix, ele1_r, ele1_c, ele2_r, ele2_c)
+        if a[0] == b[0]:
+            a = [a[0], (a[1]+1) % 5]
+            b = [b[0], (b[1]+1) % 5]
+        elif a[1] == b[1]:
+            a = [(a[0]+1) % 5, a[1]]
+            b = [(b[0]+1) % 5, b[1]]
         else:
-            char1, char2 = encrypt_rectangle_rule(
-                matrix, ele1_r, ele1_c, ele2_r, ele2_c
-            )
-        cipher_text.append(char1 + char2)
-    return cipher_text
+            temp = a
+            a = [a[0], b[1]]
+            b = [b[0], temp[1]]
 
+        s = matrix[a[0]][a[1]] + matrix[b[0]][b[1]]
+        encrypted.append(s)
+    return encrypted
 
-text_plain = YSL_io.inputGRN("\nEnter the plain text : ")
-text_plain = remove_spaces(to_lower(text_plain))
-plain_text_list = create_digraphs(fill_letter(text_plain))
-if len(plain_text_list[-1]) != 2:
-    plain_text_list[-1] += "z"
+def decryption(encrypted, matrix):
+    decrypted = []
+    for i in range(len(encrypted)):
+        a = None
+        b = None
+        for j in range(len(matrix)):
+            if encrypted[i][0] in matrix[j]:
+                a = [j, matrix[j].index(encrypted[i][0])]
+            if encrypted[i][1] in matrix[j]:
+                b = [j, matrix[j].index(encrypted[i][1])]
+            if a and b:  # Both a and b are found
+                break
 
-key = YSL_io.inputBLU("\nEnter the key : ")
-YSL_io.printBLU("\nKey text : ", key)
-YSL_io.printMGNTA('\n\nMatrix : ')
-key = to_lower(key)
-matrix = generate_key_table(key, letters)
+        if a[0] == b[0]:
+            a = [a[0], (a[1]-1) % 5]
+            b = [b[0], (b[1]-1) % 5]
+        elif a[1] == b[1]:
+            a = [(a[0]-1) % 5, a[1]]
+            b = [(b[0]-1) % 5, b[1]]
+        else:
+            temp = a
+            a = [a[0], b[1]]
+            b = [b[0], temp[1]]
 
-for row in matrix:
-    for element in row:
-        print(element, end=" ")
-    print()
+        s = matrix[a[0]][a[1]] + matrix[b[0]][b[1]]
+        decrypted.append(s)
+    return decrypted
 
-YSL_io.printORNG("\nPlain Text : ", end="")
-print(text_plain)
-cipher_list = encrypt_by_playfair_cipher(matrix, plain_text_list)
-cipher_text = "".join(cipher_list)
-YSL_io.printRED("\nCipherText : ", end="")
-print(cipher_text)
+while(1):
+    choice = YSL_io.inputGRN("\nDo you want to encrypt (e) or decrypt (d)? ")
+    if choice == 'e' or choice == 'd':
+        break
+
+if choice == 'e':
+    key = YSL_io.inputMGNTA("\nEnter key: ")
+    plaintext = YSL_io.inputMGNTA("\nEnter plaintext: ").replace(" ", "")
+    YSL_io.printBLU("\nThe entered key is : ", end='')
+    print(key)
+    YSL_io.printBLU("\nThe plain text is : ", end='')
+    print(plaintext)
+
+    matrix = getMatrix(key)
+
+    YSL_io.printGRN("\nThe converted plain text is : ",end='')
+    pltext = getPlainText(plaintext)
+    print(pltext)
+
+    YSL_io.printORNG('\nThe matrix is :\n')
+    for i in matrix:
+        print(i)
+
+    YSL_io.printRED("\nThe encrypted plain text is : ",end='')
+    print(encryption(pltext, matrix))
+elif choice == 'd':
+    key = YSL_io.inputMGNTA("\nEnter key: ")
+    encrypted_text = YSL_io.inputMGNTA("\nEnter the encrypted text: ")
+    YSL_io.printBLU("\nThe entered key is : ", end='')
+    print(key)
+    YSL_io.printBLU("\nThe encrypted text is : ", end='')
+    print(encrypted_text)
+
+    matrix = getMatrix(key)
+
+    YSL_io.printRED("\nThe decrypted text is : ",end='')
+    print(decryption(getPlainText(encrypted_text), matrix))
