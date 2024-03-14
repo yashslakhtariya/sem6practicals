@@ -1,0 +1,157 @@
+<html>
+
+<head>
+    <title>Haribol Technologies Pvt. Lmt.</title>
+    <style>
+        html,
+        body {
+            background-color: #efe6e9;
+        }
+        * {
+            font-family: Ubuntu;
+            font-weight: bold;
+        }
+
+        h3 {
+            margin-top: 5px;
+            text-align: center;
+            font-size: 25px;
+        }
+
+        form {
+            color: #efe6e9;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            background-color: #b75969;
+            width: 45%;
+            display: inline-block;
+            margin: 20px;
+            border-radius: 20px;
+        }
+
+        label {
+            margin: 10px;
+        }
+
+        input {
+            margin: 5px;
+            border-radius: 20px;
+            border: 2px solid #b75969;
+            padding: 10px;
+            width: 100%;
+        }
+
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #5e81cc;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 7px #9999a9;
+        }
+
+        button:hover {
+            background-color: #a347ba;
+        }
+
+        button:active {
+            background-color: #a347ba;
+            box-shadow: 0 5px #797989;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+
+<body>
+    <header style="font-size: 32px; font-weight: bold; margin-left: 400px;margin-top: 30px; margin-bottom: 30px;">
+        <img src="logo.jpg" alt="LOGO" height="150px" align="center" style="border-radius: 100%; margin-left: 30px;">
+        &ensp;&ensp;Haribol Technologies Employee Database
+    </header>
+    <form action="/ysl/employees/add" method="POST">
+        <h3>Add New Employee</h3>
+        <label>Employee ID</label>
+        <br><br>
+        <input type="text" id='EmployeeID' name="id" required>
+        <br><br>
+        <label>Name</label>
+        <br><br>
+        <input type="text" id="name" name="name" required>
+        <br><br>
+        <label>Email ID</label>
+        <br><br>
+        <input type="text" id="email" name="email" required>
+        <br><br>
+        <label>Phone</label>
+        <br><br>
+        <input type="text" id="phone" name="phone" required>
+        <br><br>
+        <label>Department</label>
+        <br><br>
+        <input type="text" id="dept" name="dept" required>
+        <br><br>
+        <button type="reset">Reset</button>
+        <button type="submit">Submit</button>
+        <br><br>
+    </form>
+    <form action="/ysl/employees/change" method="POST">
+        <h3>Update an Employee</h3>
+        <label>Employee ID</label>
+        <br><br>
+        <input type="text" id='EmployeeID' name="id" required>
+        <br><br>
+        <label>Name</label>
+        <br><br>
+        <input type="text" id="name" name="name" required>
+        <br><br>
+        <label>Email ID</label>
+        <br><br>
+        <input type="text" id="email" name="email" required>
+        <br><br>
+        <label>Phone</label>
+        <br><br>
+        <input type="text" id="phone" name="phone" required>
+        <br><br>
+        <label>Department</label>
+        <br><br>
+        <input type="text" id="dept" name="dept" required>
+        <br><br>
+        <button type="reset">Reset</button>
+        <button type="submit">Submit</button>
+        <br><br>
+    </form>
+    <form action="/ysl/employees/get" method="GET">
+        <h3>View an Employee</h3>
+        <label>Employee ID</label>
+        <br><br>
+        <input type="text" id="EmployeeID" name="id" required>
+        <br><br>
+        <button type="reset">Reset</button>
+        <button type="submit">Submit</button>
+        <br><br>
+    </form>
+    <form action="/ysl/employees/delete" method="POST">
+        <h3>Delete an Employee</h3>
+        <br><br>
+        <label>Employee ID</label>
+        <input type="text" id='EmployeeID' name="id" required>
+        <br><br>
+        <button type="reset">Reset</button>
+        <button type="submit">Submit</button>
+        <br><br>
+    </form>
+    <form action="/ysl/employees" method="GET">
+        <h3>Get all Employee data</h3>
+        <button type="All Employees">Submit</button>
+        <br><br>
+    </form>
+</body>
+
+</html>
