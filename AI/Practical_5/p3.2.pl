@@ -1,0 +1,9 @@
+study(charlie,csc135).
+study(olivia,csc135).
+study(jack,csc131).
+study(arthur,csc134).
+teach(kirke,csc135).
+teach(collins,csc131).
+teach(collins,csc171).
+teach(juniper,csc134).
+isProfof(X,Y):-teach(X,C),study(Y,C).

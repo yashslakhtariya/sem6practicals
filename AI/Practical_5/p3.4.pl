@@ -1,0 +1,9 @@
+owns(jack,bmw).
+owns(john,chevy).
+owns(olivia,civic).
+owns(jane,chevy).
+car(bmw,sedan).
+car(civic,sedan).
+car(chevy,truck).
+owner(jane,sedan):-owns(jane,bmw),car(bmw,sedan).
+owner(jane,truck):-owns(jane,chevy),car(chevy,truck).

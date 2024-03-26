@@ -1,0 +1,50 @@
+Subject: Predicate Logic
+Material Source: https://drive.google.com/file/d/1X-dEOinigBWf0CDhtB4VqMY8bGke1d4E/view
+Level: 1
+Type: reading
+
+Subject: Predicate Logic
+Material Source: https://www.youtube.com/watch?v=FpGeg27Ffk8
+Level: 1
+Type: watching
+
+Subject: Prepositional Logic
+Material Source: https://drive.google.com/file/d/1X-dEOinigBWf0CDhtB4VqMY8bGke1d4E/view
+Level: 1
+Type: reading
+
+Subject: Prepositional Logic
+Material Source: https://www.youtube.com/watch?v=6490tKrGEic
+Level: 1
+Type: watching
+
+Subject: Intelligent Agent
+Material Source: https://drive.google.com/file/d/1c89-gv1cY9Os5K6m2TvKq95_J6igLl1b/view
+Level: 1
+Type: reading
+
+Subject: Intelligent Agent
+Material Source: https://www.youtube.com/watch?v=BkedAnQfJ_U
+Level: 1
+Type: watching
+
+Subject: Informed Search
+Material Source: https://www.youtube.com/watch?v=gZpUcsB9TFc
+Level: 1
+Type: watching
+
+Subject: Informed Search
+Material Source: https://drive.google.com/file/d/1lF8hEuBhWLsNZwffBeAO9pYorJiAqUQ1/view
+Level: 1
+Type: reading
+
+Subject: Uninformed Search
+Material Source: https://drive.google.com/file/d/1Ju8Ffdo7ubLi4syHEq4vXKe4t2Xvd8K2/view
+Level: 1
+Type: reading
+
+Subject: Uninformed Search
+Material Source: https://www.youtube.com/watch?v=gZpUcsB9TFc
+Level: 1
+Type: watching
+
