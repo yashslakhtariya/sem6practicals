@@ -1,0 +1,6 @@
+Analyse Webpages
+
+curl -X POST  -u "apikey:525_IRJ1zd1sGmM4Ga-yGEekmqUeLw5NPg-HLHVT24_I" --header "Content-Type: application/json" --data "{
+  \"url\": \"https://newsroom.ibm.com/2024-04-09-IBM-to-Help-Canadian-Enterprises-Leverage-Generative-AI-and-Address-their-Data-Sovereignty-Requirements\",
+  \"features\": {\"sentiment\": {},\"categories\":{}, \"concepts\":{}, \"entities\":{},\"keywords\":{}}}" \
+"https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/47885ddf-d3c1-4ca0-a438-57be5bb5e6f3/v1/analyze?version=2018-09-21"
