@@ -1,5 +1,6 @@
 
 const axios = require('axios');
+require('dotenv').config();
 
 const options = {
   method: 'GET',
@@ -8,7 +9,7 @@ const options = {
     term: 'devotion'
   },
   headers: {
-    'X-RapidAPI-Key': 'd971976965msh86c63f664a1ca02p10db23jsne5dd51351a67',
+    'X-RapidAPI-Key': process.env.RapidAPI_key,
     'X-RapidAPI-Host': 'mashape-community-urban-dictionary.p.rapidapi.com'
   }
 };
