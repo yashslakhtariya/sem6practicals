@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+require('dotenv').config();
 
 
 const port = 8080;
@@ -11,9 +12,9 @@ const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-unde
 
 // Initialize Watson NLU
 const nlu = new NaturalLanguageUnderstandingV1({
-    authenticator: new IamAuthenticator({ apikey: 'DOp1iM-8lo9FisfBw5_FHl-g8dsiFZ3RhrdoXBebjNpy' }), // Replace 'YOUR_API_KEY' with your actual API key
+    authenticator: new IamAuthenticator({ apikey: process.env.NLU_apikey }), // Replace 'YOUR_API_KEY' with your actual API key
     version: '2021-03-25',
-    serviceUrl: 'https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/8a660346-4386-4458-8e11-23f367e1ab13', // Replace 'YOUR_INSTANCE_ID' with your actual instance ID
+    serviceUrl: process.env.NLU_serviceURL, // Replace 'YOUR_INSTANCE_ID' with your actual instance ID
 });
 
 
@@ -33,7 +34,7 @@ const options = {
         term: req.body.dictionary_word
     },
     headers: {
-        'X-RapidAPI-Key': 'd28dceda32msh54fb43633711ea9p101e78jsn03d0c5903b4d',
+        'X-RapidAPI-Key': process.env.RapidAPI_key,
         'X-RapidAPI-Host': 'mashape-community-urban-dictionary.p.rapidapi.com'
     }
 };

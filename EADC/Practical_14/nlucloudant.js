@@ -1,4 +1,5 @@
 var Cloudant = require('@cloudant/cloudant');
+require('dotenv').config();
 
 // Initialize Cloudant with settings from .env
 var url = "https://apikey-v2-197dnkn3t48agl1wuzpj91l7lo4dkifrzhim8wjf5ykg:0f75c4be5fda84f99a0d4c582ef21b89@3447fb1b-02ae-4331-923a-607d107471ea-bluemix.cloudantnosqldb.appdomain.cloud";
@@ -18,9 +19,9 @@ const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-unde
 
 // Initialize Watson NLU
 const nlu = new NaturalLanguageUnderstandingV1({
-    authenticator: new IamAuthenticator({ apikey: 'DOp1iM-8lo9FisfBw5_FHl-g8dsiFZ3RhrdoXBebjNpy' }), // Replace 'YOUR_API_KEY' with your actual API key
+    authenticator: new IamAuthenticator({ apikey: process.env.NLU_apikey }), // Replace 'YOUR_API_KEY' with your actual API key
     version: '2021-03-25',
-    serviceUrl: 'https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/8a660346-4386-4458-8e11-23f367e1ab13', // Replace 'YOUR_INSTANCE_ID' with your actual instance ID
+    serviceUrl: process.env.NLU_serviceURL, // Replace 'YOUR_INSTANCE_ID' with your actual instance ID
 });
 
 // Check if database exists, if not, create it
@@ -51,7 +52,7 @@ app.post('/', urlencodedParser, async (req, res) => {
         url: 'https://mashape-community-urban-dictionary.p.rapidapi.com/define',
         params: { term: term },
         headers: {
-            'X-RapidAPI-Key': 'd28dceda32msh54fb43633711ea9p101e78jsn03d0c5903b4d',
+            'X-RapidAPI-Key': process.env.RapidAPI_key,
             'X-RapidAPI-Host': 'mashape-community-urban-dictionary.p.rapidapi.com'
         }
     };
