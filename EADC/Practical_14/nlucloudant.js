@@ -2,16 +2,16 @@ var Cloudant = require('@cloudant/cloudant');
 require('dotenv').config();
 
 // Initialize Cloudant with settings from .env
-var url = "https://apikey-v2-197dnkn3t48agl1wuzpj91l7lo4dkifrzhim8wjf5ykg:0f75c4be5fda84f99a0d4c582ef21b89@3447fb1b-02ae-4331-923a-607d107471ea-bluemix.cloudantnosqldb.appdomain.cloud";
-var username = "apikey-v2-197dnkn3t48agl1wuzpj91l7lo4dkifrzhim8wjf5ykg";
-var password = "0f75c4be5fda84f99a0d4c582ef21b89";
+var url = process.env.cldntURL;
+var username = process.env.cldntUSER;
+var password = process.env.cldntPSWD;
 var cloudant = Cloudant({ url: url, username: username, password: password });
 
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
-const port = 8080;
+const port = 6432;
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 const axios = require('axios');
 const { IamAuthenticator } = require('ibm-watson/auth');
@@ -28,11 +28,11 @@ const nlu = new NaturalLanguageUnderstandingV1({
 async function checkOrCreateDatabase() {
     try {
         const dbList = await cloudant.db.list();
-        if (!dbList.includes('imdbdata')) {
-            await cloudant.db.create('imdbdata');
-            console.log("Database 'imdbdata' created successfully");
+        if (!dbList.includes('ysleadc14')) {
+            await cloudant.db.create('ysleadc14');
+            console.log("Database 'ysleadc14' created successfully");
         } else {
-            console.log("Database 'imdbdata' already exists");
+            console.log("Database 'ysleadc14' already exists");
         }
     } catch (error) {
         console.error("Error checking/creating database:", error);
@@ -75,8 +75,8 @@ app.post('/', urlencodedParser, async (req, res) => {
         console.log("NLU response:", nluResponse.result);
 
         // Insert data into the database
-        await cloudant.use('imdbdata').insert({ axiosResponse: axiosResponse.data, nluResponse: nluResponse.result });
-        console.log("Data inserted into 'imdbdata' database successfully");
+        await cloudant.use('ysleadc14').insert({ axiosResponse: axiosResponse.data, nluResponse: nluResponse.result });
+        console.log("Data inserted into 'ysleadc14' database successfully");
 
         res.send(nluResponse.result.sentiment.document.label);
     } catch (error) {
