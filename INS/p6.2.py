@@ -1,3 +1,4 @@
+import YSL_io as ysl
 k_lst = []
 
 def enc_vig(plain, k):
@@ -9,7 +10,7 @@ def enc_vig(plain, k):
         enc_txt += enc_char
     return enc_txt
 
-print("-------VIGENERE---------------------\n")
-pt = input("Enter the plain text : ")
-k = input("Enter the key: ")
-print(enc_vig(pt, k))
+pt = ysl.inputGRN("\n\tEnter the plain text : ")
+k = ysl.inputORNG("\tEnter the key: ")
+ysl.printRED(f'\n\tEncrypted text: ', end='')
+ysl.printBLU(enc_vig(pt, k))
