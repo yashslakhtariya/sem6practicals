@@ -1,36 +1,41 @@
 import hashlib
+import YSL_io as ysl
 
-print("===============================Sender side===============================\n")
-message = "helloworld" 
-print("the message is : ",message) 
-print("./\.")
+ysl.printMGNTA("=============================== Sender side ===============================\n")
+message = ysl.inputGRN("\nEnter the message : ")
+ysl.printORNG("\nMessage : ", message) 
+
 result = hashlib.sha512(message.encode()) 
 hashval = result.hexdigest()
-print("the hash value is : ",hashval) 
-print("./\.")
-finalmessage = message+'xx'+hashval 
-print("the final message is : ",finalmessage) 
-print("./\.")
-print("\n..........................SENDING THE MESSAGE	\n")
-print("===============================Receiver side===============================") 
-print("\n..........................RECEIVING THE MESSAGE.	\n")
+ysl.printORNG("\nHash value : ", hashval) 
+
+finalmessage = message + 'xx' + hashval 
+ysl.printORNG("\nThe final message : ", end='') 
+print(finalmessage)
+ysl.printGRN("\n.......................... SENDING THE MESSAGE ..........................\n")
+ysl.printMGNTA("\n=============================== Receiver side =============================\n")
+ysl.printGRN("\n.......................... RECEIVING THE MESSAGE ..........................\n")
 
 rm = finalmessage 
-print("Received message is : ",rm) 
-print("./\.")
+ysl.printORNG("Received message : ", end='')
+print(rm) 
+
 rm2 = rm.split('xx') 
 message = rm2[0] 
 hashval = rm2[1]
+
 result = hashlib.sha512(message.encode()) 
 temp = result.hexdigest()
-print("The received message is ",message) 
-print("./\.")
-print("The hash value of received message is ",temp) 
-print("./\.")
-print("The received hash value is ",hashval) 
-print("./\.")
-print("\n................Checking If message is altered or not.	\n")
+
+ysl.printORNG("\nReceived message : ", end='')
+print(message) 
+ysl.printORNG("\nHash value of received message : ", end='') 
+print(temp)
+ysl.printORNG("\nReceived hash value : ", end='')
+print(hashval) 
+ysl.printGRN("\n................ Checking If message is altered or not ................\n")
+
 if temp == hashval:
-    print("The message is not altered and Integrity achieved.") 
+    ysl.printRED("\nThe message is not altered and Integrity achieved.") 
 else:
-    print("The message is altered and Integrity not achieved.")
+    ysl.printRED("\nThe message is altered and Integrity not achieved.")
