@@ -1,5 +1,6 @@
 from prettytable import PrettyTable
 from hashlib import sha1
+import YSL_io as ysl
 
 def generate_publickey(g, p, x):
     y = (g**x) % p
@@ -35,13 +36,13 @@ q = 47
 g = 60
 
 
-message = input("Enter the Message:")
+message = ysl.inputGRN("\nEnter the Message : ")
 text = message
 text = int(sha1(text.encode()).hexdigest(), 16)
 
 r = 0
 s = 0
-key = int(input("Enter the Key:"))
+key = int(ysl.inputMGNTA("Enter the Key : "))
 
 xr = key % q
 k1 = 43
@@ -73,11 +74,13 @@ tab2.field_names = ["Variable", "Value"]
 tab2.add_rows(
     [["Signature ", sig], ["r", r], ["s", s], ["u1", u1], ["u2", u2], ["v", v]]
 )
-print("Sender Side : ")
-print(tab)
-print("Receiver Side: ")
-print(tab2)
+ysl.printRED("\nSender Side : ")
+ysl.printORNG(tab)
+ysl.printRED("\nReceiver Side: ")
+ysl.printBLU(tab2)
 if v == r:
-    print("SIGNATURE IS VALID !!:)")
+    ysl.printGRN('\n------------------------------- Signature Verification ------------------------------------')
+    ysl.printRED("\n\t\t\t\t\u2713 SIGNATURE IS VALID")
 else:
-    print("SIGNATURE IS INVALID !!:(")
+    ysl.printGRN('\n------------------------------- Signature Verification ------------------------------------')
+    ysl.printRED("\n\t\t\t\t\u2717 SIGNATURE IS INVALID")
