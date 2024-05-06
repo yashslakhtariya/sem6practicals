@@ -1,7 +1,6 @@
 from prettytable import PrettyTable
 from hashlib import sha1
 
-
 def generate_publickey(g, p, x):
     y = (g**x) % p
     return y
