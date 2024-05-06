@@ -42,7 +42,7 @@ text = int(sha1(text.encode()).hexdigest(), 16)
 
 r = 0
 s = 0
-key = int(ysl.inputMGNTA("Enter the Key : "))
+key = int(ysl.inputBLU("Enter the Key : "))
 
 xr = key % q
 k1 = 43
@@ -74,13 +74,13 @@ tab2.field_names = ["Variable", "Value"]
 tab2.add_rows(
     [["Signature ", sig], ["r", r], ["s", s], ["u1", u1], ["u2", u2], ["v", v]]
 )
-ysl.printRED("\nSender Side : ")
+ysl.printMGNTA("\n------------------------------- Sender Side ------------------------------------")
 ysl.printORNG(tab)
-ysl.printRED("\nReceiver Side: ")
+ysl.printMGNTA("\n------------------------------- Receiver Side ------------------------------------")
 ysl.printBLU(tab2)
 if v == r:
-    ysl.printGRN('\n------------------------------- Signature Verification ------------------------------------')
-    ysl.printRED("\n\t\t\t\t\u2713 SIGNATURE IS VALID")
+    ysl.printMGNTA('\n------------------------------- Signature Verification ------------------------------------')
+    ysl.printGRN("\n\t\t\t\t\u2713 SIGNATURE IS VALID")
 else:
-    ysl.printGRN('\n------------------------------- Signature Verification ------------------------------------')
+    ysl.printMGNTA('\n------------------------------- Signature Verification ------------------------------------')
     ysl.printRED("\n\t\t\t\t\u2717 SIGNATURE IS INVALID")
